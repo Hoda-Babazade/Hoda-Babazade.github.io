@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoda-Babazade</title>
+    <script src="ruffle.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Vazir', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        h1 {
+            color: #00796b;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        .subject {
+            margin: 20px;
+            padding: 20px;
+            border: 2px solid #00796b;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .subject:hover {
+            transform: scale(1.05);
+        }
+        button {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+        .game-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .game {
+            margin: 10px;
+            padding: 20px;
+            border: 2px solid #00796b;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .game:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .game {
+                margin: 5px;
+                padding: 10px;
+            }
+            button {
+                padding: 5px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .game {
+                margin: 2px;
+                padding: 5px;
+            }
+            button {
+                padding: 2px 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>بازی‌های درسی</h1>
+
+    <div class="game-container">
+        <div class="game">
+            <h2>بازی ریاضی دوم</h2>
+            <div id="mathGames"></div>
+        </div>
+        <div class="game">
+            <h2>بازی علوم دوم</h2>
+            <div id="scienceGames"></div>
+        </div>
+    </div>
+
+    <div id="canvas"></div>
+    <div class="footer"> 2024 Hoda Babazade </div>
+    <script>
+    const ruffle = window.RufflePlayer.newest();
+    const player = ruffle.createPlayer();
+    document.getElementById("canvas").appendChild(player);
+
+    function loadGame(gamePath) {
+        player.load(gamePath).then(() => {
+            player.start();
+        });
+    }
+
+    // آرایه‌ای از نام فایل‌های SWF
+    const mathGames = ['سه رقمی بساز.swf', 'شمارش با رسم خط.swf', 'فارسی=انگلیسی ص4.swf', 'مقایسه دورقمی.swf', 'قرینه.swf', 'تقریب.swf'];
+    const scienceGames = ['رشدگیاه.swf', 'گیاه.swf'];
+
+    // ایجاد دکمه‌ها برای بازی‌های ریاضی
+    mathGames.forEach(game => {
+        const button = document.createElement('button');
+        button.innerText = game.replace('.swf', ''); // نام فایل بدون پسوند
+        button.onclick = () => loadGame(`math/${game}`);
+        document.getElementById('mathGames').appendChild(button);
+    });
+
+    // ایجاد دکمه‌ها برای بازی‌های علوم
+    scienceGames.forEach(game => {
+        const button = document.createElement('button');
+        button.innerText = game.replace('.swf', ''); // نام فایل بدو�� پسوند
+        button.onclick = () => loadGame(`science/${game}`);
+        document.getElementById('scienceGames').appendChild(button);
+    });
+</script>
+</body>
+</html>
